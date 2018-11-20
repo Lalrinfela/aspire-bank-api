@@ -21,3 +21,7 @@ $router->get('/key', function() {
 });
 
 $router->post('/register', 'UserController@register');
+
+$router->post('/apply-loan', 'LoanController@apply');
+
+$router->post('/repay-loan', 'RepaymentController@payment');

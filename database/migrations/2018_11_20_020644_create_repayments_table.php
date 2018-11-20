@@ -15,7 +15,6 @@ class CreateRepaymentsTable extends Migration
     {
         Schema::create('repayments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
             $table->integer('loan_id')->unsigned();
             $table->double('amount', 14, 2);
             $table->dateTime('paid_on');

@@ -17,7 +17,8 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('legal_name');
             $table->string('email');
-            $table->string('role');
+            $table->string('looking_for');
+            $table->boolean('singapore_residents')->default('1'); // 1 or 0
             $table->timestamps();
         });
     }

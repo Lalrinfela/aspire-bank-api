@@ -25,6 +25,7 @@ class CreateLoansTable extends Migration
             $table->double('total_amount', 14, 2); //amount + interest amount + arrangement fee
             $table->date('opening');
             $table->integer('frequency_paid')->default(0); // No of paid frequency counts
+            $table->double('total_amount_paid', 14, 2)->default(0);
             $table->string('status')->default('active'); // when complete payment, this changes to completed
             $table->timestamps();
         });
