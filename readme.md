@@ -30,3 +30,10 @@ Note: By default, all loans have status active, unless the current loan of the u
 
 
 # LOAN REPAYMENT
+1. POST: /repay-loan with params as follows
+    [
+        'loan_id' => 1 //The loan id return from apply-loan
+        'amount' => 1200
+        'payment_type' => 'In Cash' // In Cash, Cheque, Online (default)
+    ]
+Note: The system should block for repayment of loan that is already completed.

@@ -33,20 +33,24 @@ class RepaymentController extends Controller {
             'payment_type' => 'Accepted Type: Online, In Cash, Cheque'
         ]);
         $loan = $this->loan->find($this->request->loan_id);
-        if($loan->frequency_paid >= $loan->frequency) {
-            return 'This loan is already repaid.';
+        if($loan->status == 'completed') {
+            return ['status' => 'This loan is already repaid.'];
         } else {
             $data['amount'] = $this->request->amount;
             $data['loan_id'] = $this->request->loan_id;
             $data['payment_type'] = $this->request->payment_type;
             $data['paid_on'] = date('Y-m-d');
             $data['amount_balance'] = $loan->total_amount - ($loan->total_amount_paid+$data['amount']);
-            $data['frequency_balance'] = $loan->frequency - 1;
+            $data['frequency_balance'] = $loan->frequency - ($loan->frequency_paid+1);
             $repayment = $this->repayment->create($data);
-            if(($loan->frequency_paid+1) >= $loan->frequency) {
-                $this->loan->where('id', $loan->id)->update(['frequency_paid' => $loan->frequency_paid+1, 'total_amount_paid' => $loan->total_amount_paid+$data['amount'], 'status' => 'completed']);
+            if(($loan->total_amount - $loan->total_amount_paid) < $data['amount']) {
+                return ['status' => 'Remaining payment is only: S$' . ($loan->total_amount - $loan->total_amount_paid) . '. Please try again with exact balance amount to close your loan.'];
             } else {
-                $this->loan->where('id', $loan->id)->update(['frequency_paid' => $loan->frequency_paid+1, 'total_amount_paid' => $loan->total_amount_paid+$data['amount']]);
+                if(($loan->total_amount - $loan->total_amount_paid) == $data['amount']) {
+                    $this->loan->where('id', $loan->id)->update(['frequency_paid' => $loan->frequency_paid+1, 'total_amount_paid' => $loan->total_amount_paid+$data['amount'], 'status' => 'completed']);
+                } else {
+                    $this->loan->where('id', $loan->id)->update(['frequency_paid' => $loan->frequency_paid+1, 'total_amount_paid' => $loan->total_amount_paid+$data['amount']]);
+                }
             }
             return $repayment;
         }
