@@ -1,12 +1,12 @@
-#ASPIRE DEMO API for LOANS create using Laravel LUMEN Micro-services BY C. LALRINFELA
+# ASPIRE DEMO API for LOANS create using Laravel LUMEN Micro-services BY C. LALRINFELA
 
-#INSTALLATION
+# INSTALLATION
 1. composer install
 2. rename .env.example to .env
 3. visit /key routes and copy the 32 characters string to .env
 
 
-#CREATE NEW USER
+# CREATE NEW USER
 1. POST: /register with params as follows
     [
         'legal_name' => 'C. Lalrinfela',
@@ -18,7 +18,7 @@
 2. Copy the return id of the new user created for loan application
 
 
-#LOAN APPLICATION
+# LOAN APPLICATION
 1. POST: /apply-loan with params as follows
     [
         'user_id' => 1 //The user id returned from register
