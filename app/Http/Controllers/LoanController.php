@@ -18,8 +18,9 @@ class LoanController extends Controller {
 
     public function apply()
     {
+        $this->request->request->add(['status' => 'active']);
         $this->validate($this->request, [
-            'user_id' => 'required|unique_with:loans, status', //Only one active loan is allowed
+            'user_id' => 'required|unique_with:loans, user_id, status', //Only one active loan is allowed
             'amount' => 'required|numeric|min:1000',
             'duration' => 'required|numeric|min:3'
         ],
