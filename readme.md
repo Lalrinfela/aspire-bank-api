@@ -5,6 +5,7 @@
     1. composer install
     2. rename .env.example to .env
     3. visit /key routes and copy the 32 characters string to .env
+    4. create database and update the env file respectively
 
 
 ## CREATE NEW USER
